@@ -13,21 +13,13 @@ class Usuario(models.Model):
     correo = models.EmailField(primary_key=True, verbose_name='correo')
     user = models.CharField(max_length=255, verbose_name='usuarios')
     contrasena = models.CharField(max_length=20)
+    dinero = models.IntegerField(default=0,max_length=10)
 
     def __str__(self):
         return self.user
 
-class Tarjeta(models.Model):
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='tarjetas', verbose_name='tarjetas')
-    numero = models.AutoField(primary_key=True, verbose_name='idTargeta')
-    nombre = models.CharField(max_length=16)
-    dinero = models.IntegerField(max_length=10)
-
-    def __str__(self):
-        return self.nombre
-
 class Transaccion(models.Model):
-    tarjeta = models.ForeignKey(Tarjeta,on_delete=models.CASCADE, related_name='transacciones', verbose_name='transacciones')
+    user = models.ForeignKey(Usuario,on_delete=models.CASCADE,default='defaultUser', related_name='usuario', verbose_name='usuario')
     id = models.AutoField(primary_key=True, verbose_name='idTransaccion')
     fecha = models.DateTimeField(auto_now_add=True)
     total = models.IntegerField(max_length=10)
