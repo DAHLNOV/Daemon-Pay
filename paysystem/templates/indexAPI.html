@@ -17,10 +17,10 @@
 <div class="flex flex-row flex-wrap">
     <section class="w-full bg-white max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl">
         <h1 class="text-4xl font-bold pb-10 red-txt text-center">Payment System API</h1>
+        <a href="admin"><button class="w-full text-center flex flex-col blue-btn mb-6 pb-4 pt-4 text-white font-bold rounded shadow-lg hover:shadow-xl" type="button">Login</button></a>
         <a href="admin"><button class="w-full text-center flex flex-col adm-btn mb-6 pb-4 pt-4 text-white font-bold rounded shadow-lg hover:shadow-xl" type="button">Admin</button></a>
-        <a href="usuario"><button class="w-full text-center flex flex-col api-btn mb-6 pb-4 pt-4 text-white font-bold rounded shadow-lg hover:shadow-xl" type="button">Usuarios</button></a>
-        <a href="tarjeta"><button class="w-full flex flex-col api-btn mb-6 pb-4 pt-4 text-white font-bold rounded shadow-lg hover:shadow-xl" type="button">Tarjetas</button></a>
-        <a href="transaccion"><button class="w-full flex flex-col api-btn mb-6 pb-4 pt-4 text-white font-bold rounded shadow-lg hover:shadow-xl" type="button">Transacciones</button></a>
+        <a href="api/v1/usuarios"><button class="w-full text-center flex flex-col api-btn mb-6 pb-4 pt-4 text-white font-bold rounded shadow-lg hover:shadow-xl" type="button">Usuarios</button></a>
+        <a href="api/v1/transacciones"><button class="w-full flex flex-col api-btn mb-6 pb-4 pt-4 text-white font-bold rounded shadow-lg hover:shadow-xl" type="button">Transacciones</button></a>
         <a href="api/v1/paysystem"><button class="w-full text-center flex flex-col adm-btn mb-6 pb-4 pt-4 text-white font-bold rounded shadow-lg hover:shadow-xl" type="button">Test Task list</button></a>
 
     </section>
@@ -41,6 +41,9 @@
     }
     .adm-btn{
         background-color: #ba161e;
+    }
+    .blue-btn{
+        background-color: #164dba;
     }
     .red-txt{
         color: #ba161e;
