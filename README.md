@@ -2,7 +2,7 @@
 
 <h1 align="center"> Contexto</h1>
 <hr>
-Te la comes sin pretexto.<br>
+<br>
 Este proyecto web es el encargo semestral solicitado para la asignatura de Integración de plataformas con el fin de aprender sobre herramientas y el proceso de integración de sistemas.
 
 <h1 align="center"> Descripcion </h1>
