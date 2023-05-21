@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from django.contrib.auth import authenticate, login
 from .serializer import TaskSerializer, UsuarioSerializer, TransaccionSerializer
 from .models import Task, Usuario, Transaccion
@@ -25,19 +25,17 @@ class TransaccionView(viewsets.ModelViewSet):
 
 @api_view(['POST'])
 def login_view(request):
-    serializer = UsuarioSerializer(data=request.data)
-    serializer.is_valid(raise_exception=True)
-
-    username = serializer.validated_data['user']
-    password = serializer.validated_data['contrasena']
-
-    user = Usuario.objects.get(user=username)
-
-    if user.check_password(password):
-        login(request, user)
-        return Response({'message': 'Inicio de sesión exitoso.'}, status=200)
-    else:
-        return Response({'error': 'Credenciales de inicio de sesión inválidas.'}, status=400)
+    usr_entrante = request.data['user']
+    passw_entrante = request.data['contrasena']
+    try:
+        usr_encontrado = Usuario.objects.get(user = usr_entrante)
+        passw_encontrada = usr_encontrado.contrasena
+        if(passw_encontrada == passw_entrante):
+            return Response({'message':'ok'}, status=status.HTTP_200_OK)
+        else: 
+            return Response({'message':'Información errónea, intente nuevamente'},status=status.HTTP_400_BAD_REQUEST)
+    except:#cambiar el usuario buscado no existe a info erronea por seguridad
+        return Response({'messaje':'El usuario buscado no existe en nuestros registros'},status=status.HTTP_404_NOT_FOUND)
 
 
 def homeApi(request):
