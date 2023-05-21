@@ -20,3 +20,7 @@ class TransaccionView(viewsets.ModelViewSet):
 
 def homeApi(request):
     return render(request, 'indexAPI.html')
+
+def cargo(request):
+    redirect('end')
+
