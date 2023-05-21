@@ -10,9 +10,9 @@ class TaskSerializer(serializers.ModelSerializer):
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
-        fields = ('correo', 'user', 'contrasena', 'dinero')
+        fields = ('user', 'contrasena', 'dinero')
 
 class TransaccionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Transaccion
-        fields = ('user', 'id', 'fecha', 'total', 'estado', 'target') 
+        fields = ('id', 'fecha', 'total', 'estado') 
