@@ -2,11 +2,13 @@ from rest_framework import viewsets, status
 from django.contrib.auth import authenticate, login
 from .serializer import TaskSerializer, UsuarioSerializer, TransaccionSerializer
 from .models import Task, Usuario, Transaccion
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, get_object_or_404
+from django.http import HttpResponseRedirect
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 import json
 import requests
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
@@ -19,6 +21,10 @@ class UsuarioView(viewsets.ModelViewSet):
     queryset = Usuario.objects.all()
 
 class TransaccionView(viewsets.ModelViewSet):
+    serializer_class = TransaccionSerializer
+    queryset = Transaccion.objects.all()
+
+class TransferenciaView(viewsets.ModelViewSet):
     serializer_class = TransaccionSerializer
     queryset = Transaccion.objects.all()
 
@@ -37,6 +43,60 @@ def login_view(request):
     except:#cambiar el usuario buscado no existe a info erronea por seguridad
         return Response({'messaje':'El usuario buscado no existe en nuestros registros'},status=status.HTTP_404_NOT_FOUND)
 
+
+# def transaccion_dinero(request, usuario_id):
+#     usuario_origen = get_object_or_404(Usuario, pk=request.user.id)
+#     usuario_destino = get_object_or_404(Usuario, pk=usuario_id)
+
+#     if request.method == 'POST':
+#         total_transferencia = int(request.POST.get('total'))
+
+#         if usuario_origen.dinero >= total_transferencia:
+#             usuario_origen.dinero -= total_transferencia
+#             usuario_destino.dinero += total_transferencia
+
+#             usuario_origen.save()
+#             usuario_destino.save()
+
+#             return HttpResponseRedirect('/ruta-de-destino/')
+#         else:
+#             error_message = 'No tienes suficiente dinero para realizar la transferencia.'
+
+#     return render(request, 'transferencia.html', {'usuario_destino': usuario_destino, 'error_message': error_message})
+
+@csrf_exempt
+def transferencia_view(request):
+    if request.method == 'POST':
+        usuario_origen_nombre = request.POST['usuario-origen']
+        usuario_destino_nombre = request.POST['usuario-destino']
+        monto = float(request.POST['monto'])
+
+        # Verificar si los usuarios existen
+        try:
+            usuario_origen = Usuario.objects.get(user=usuario_origen_nombre)
+            usuario_destino = Usuario.objects.get(user=usuario_destino_nombre)
+        except Usuario.DoesNotExist:
+            return HttpResponse('Los usuarios especificados no existen')
+
+        # Verificar si el usuario origen tiene suficientes fondos
+        if usuario_origen.saldo < monto:
+            return HttpResponse('El usuario origen no tiene suficientes fondos')
+
+        # Realizar la transferencia
+        usuario_origen.saldo -= monto
+        usuario_destino.saldo += monto
+        usuario_origen.save()
+        usuario_destino.save()
+
+        # Crear registro de transacción
+        Transaccion.objects.create(usuario_origen=usuario_origen, usuario_destino=usuario_destino, monto=monto)
+
+        return HttpResponse('Transferencia realizada con éxito')
+
+    return render(request, 'transferencia.html')
+
+def transaccion_view(request):
+    return render(request, 'transaccion.html')
 
 def homeApi(request):
     return render(request, 'indexAPI.html')

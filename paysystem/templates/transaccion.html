@@ -1,0 +1,35 @@
+{% if error_message %}
+<p>{{ error_message }}</p>
+{% endif %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Formulario de Transferencia</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <h2>Formulario de Transferencia</h2>
+        <form method="POST" action="{% url 'transaccion/' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="usuario-origen">Usuario Origen:</label>
+                <input type="text" class="form-control" id="usuario-origen" name="usuario-origen" required>
+            </div>
+            <div class="form-group">
+                <label for="usuario-destino">Usuario Destino:</label>
+                <input type="text" class="form-control" id="usuario-destino" name="usuario-destino" required>
+            </div>
+            <div class="form-group">
+                <label for="monto">Monto a Transferir:</label>
+                <input type="number" class="form-control" id="monto" name="monto" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Transferir</button>
+        </form>
+    </div>
+</body>
+
+</html>
