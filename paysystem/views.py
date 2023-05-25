@@ -24,9 +24,6 @@ class TransaccionView(viewsets.ModelViewSet):
     serializer_class = TransaccionSerializer
     queryset = Transaccion.objects.all()
 
-class TransferenciaView(viewsets.ModelViewSet):
-    serializer_class = TransaccionSerializer
-    queryset = Transaccion.objects.all()
 
 
 @api_view(['POST'])
@@ -42,7 +39,6 @@ def login_view(request):
             return Response({'message':'Información errónea, intente nuevamente'},status=status.HTTP_400_BAD_REQUEST)
     except:#cambiar el usuario buscado no existe a info erronea por seguridad
         return Response({'messaje':'El usuario buscado no existe en nuestros registros'},status=status.HTTP_404_NOT_FOUND)
-
 
 # def transaccion_dinero(request, usuario_id):
 #     usuario_origen = get_object_or_404(Usuario, pk=request.user.id)
@@ -67,9 +63,9 @@ def login_view(request):
 @csrf_exempt
 def transferencia_view(request):
     if request.method == 'POST':
-        usuario_origen_nombre = request.POST['usuario-origen']
-        usuario_destino_nombre = request.POST['usuario-destino']
-        monto = float(request.POST['monto'])
+        usuario_origen_nombre = request.POST.get('usuario-origen')
+        usuario_destino_nombre = request.POST.get('usuario-destino')
+        total = int(request.POST.get('total'))
 
         # Verificar si los usuarios existen
         try:
@@ -77,23 +73,22 @@ def transferencia_view(request):
             usuario_destino = Usuario.objects.get(user=usuario_destino_nombre)
         except Usuario.DoesNotExist:
             return HttpResponse('Los usuarios especificados no existen')
-
         # Verificar si el usuario origen tiene suficientes fondos
-        if usuario_origen.saldo < monto:
+        if usuario_origen.saldo < total:
             return HttpResponse('El usuario origen no tiene suficientes fondos')
-
+        
         # Realizar la transferencia
-        usuario_origen.saldo -= monto
-        usuario_destino.saldo += monto
+        usuario_origen.saldo -= total
+        usuario_destino.saldo += total
         usuario_origen.save()
         usuario_destino.save()
 
         # Crear registro de transacción
-        Transaccion.objects.create(usuario_origen=usuario_origen, usuario_destino=usuario_destino, monto=monto)
-
+        Transaccion.objects.create(usuario_origen=usuario_origen, usuario_destino=usuario_destino, total=total, estado="Realizada")
         return HttpResponse('Transferencia realizada con éxito')
 
-    return render(request, 'transferencia.html')
+    return render(request, 'transaccion.html')
+
 
 def transaccion_view(request):
     return render(request, 'transaccion.html')

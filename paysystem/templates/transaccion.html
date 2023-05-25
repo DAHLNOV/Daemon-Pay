@@ -13,7 +13,7 @@
 <body>
     <div class="container">
         <h2>Formulario de Transferencia</h2>
-        <form method="POST" action="{% url 'transaccion/' %}">
+        <form method="POST" action="/transaccion/">
             {% csrf_token %}
             <div class="form-group">
                 <label for="usuario-origen">Usuario Origen:</label>
@@ -24,8 +24,8 @@
                 <input type="text" class="form-control" id="usuario-destino" name="usuario-destino" required>
             </div>
             <div class="form-group">
-                <label for="monto">Monto a Transferir:</label>
-                <input type="number" class="form-control" id="monto" name="monto" required>
+                <label for="total">Monto a Transferir:</label>
+                <input type="number" class="form-control" id="total" name="total" required>
             </div>
             <button type="submit" class="btn btn-primary">Transferir</button>
         </form>
