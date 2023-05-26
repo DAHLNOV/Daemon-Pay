@@ -37,4 +37,5 @@ class UserLoginSerializer(serializers.Serializer):
 class TransaccionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Transaccion
-        fields = ('id', 'fecha', 'total', 'estado') 
+        fields = ('id', 'fecha', 'total', 'estado')
+        

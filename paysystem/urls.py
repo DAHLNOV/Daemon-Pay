@@ -7,11 +7,10 @@ from .views import *
 router = routers.DefaultRouter()
 router.register(r'paysystem', views.TaskView, 'paysystem')
 router.register(r'usuarios', views.UsuarioView, 'usuario')
-router.register(r'transacciones', views.TransaccionView, 'transacciones')
 
 urlpatterns = [
     path('',homeApi), 
-    path("api/v1/", include(router.urls)) ,
+    path("api/v1/", include(router.urls)),
     path('docs/', include_docs_urls(title="Tasks API")),
     path('api/v2/login/', UserLogin, name='login'),
     path('api/v2/register/', UserRegister, name='register'),
@@ -20,6 +19,7 @@ urlpatterns = [
     path('api/saludo/', saludo, name='saludo'),
     path('register/', registerview),
     path('login/', loginview),
-    path('perfil/', perfilview)
-
+    path('perfil/', perfilview),
+    path('transaccionpage/', transaccion_view, name='transaccionpage'),
+    path('transaccion/', transferencia_view, name='transaccion')
 ]
