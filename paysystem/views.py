@@ -38,7 +38,7 @@ def UserRegister (request):
      try:
         newuser = Usuario(user=usr_entrante, contrasena=pass_entrante)
         newuser.save()
-        return redirect('/perfil/')
+        return redirect('/login/')
         #return Response({'message':'Usuario creado'}, status=status.HTTP_200_OK)
      except:
         return Response({'message':'No se pudo crear el usuario, revise bien los campos'},status=status.HTTP_400_BAD_REQUEST)
@@ -114,6 +114,7 @@ def transferencia_view(request):
 
 def transaccion_view(request):
     return render(request, 'transaccion.html')
+
 @api_view(['POST'])
 def UserLogout(request):
 	permission_classes = (permissions.AllowAny,)
@@ -142,9 +143,9 @@ def loginview(request):
 def perfilview(request):
     usuario = request.session['usuario']
     usr_encontrado = Usuario.objects.get(user = usuario)
-    dinero_usuario = usr_encontrado.dinero
+    dinero_usuario = usr_encontrado.saldo
     print(usr_encontrado)
-    return render(request, 'Perfil.html', {'user': usr_encontrado.user, 'dinero': dinero_usuario})
+    return render(request, 'Perfil.html', {'user': usr_encontrado.user, 'saldo': dinero_usuario})
 
 def saludo(request):
     url = 'http://192.168.137.1:5000/api/v1/test/saludo'
