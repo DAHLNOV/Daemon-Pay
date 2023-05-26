@@ -35,8 +35,12 @@ class TransaccionView(viewsets.ModelViewSet):
 def UserRegister (request):
      usr_entrante = request.data['user']
      pass_entrante = request.data['contrasena']
+     url = 'https://musicpro.bemtorres.win/api/v1/test/saldo'
+     response = requests.get(url)
+     content = response.json()
+     saldo_externo = content['saldo']
      try:
-        newuser = Usuario(user=usr_entrante, contrasena=pass_entrante)
+        newuser = Usuario(user=usr_entrante, contrasena=pass_entrante, saldo=saldo_externo)
         newuser.save()
         return redirect('/login/')
         #return Response({'message':'Usuario creado'}, status=status.HTTP_200_OK)
@@ -109,7 +113,7 @@ def transferencia_view(request):
         Transaccion.objects.create(usuario_origen=usuario_origen, usuario_destino=usuario_destino, total=total, estado="Realizada")
         return HttpResponse('Transferencia realizada con éxito')
 
-    return render(request, 'transaccion.html')
+    return render(request, 'transaccion.html', {'user': usuario_origen_nombre})
 
 
 def transaccion_view(request):
@@ -144,8 +148,12 @@ def perfilview(request):
     usuario = request.session['usuario']
     usr_encontrado = Usuario.objects.get(user = usuario)
     dinero_usuario = usr_encontrado.saldo
+    url = 'https://musicpro.bemtorres.win/api/v1/test/saludo'
+    response = requests.get(url, timeout=10)    
+    content = response.json()
+    saludoentrante = content['message']
     print(usr_encontrado)
-    return render(request, 'Perfil.html', {'user': usr_encontrado.user, 'saldo': dinero_usuario})
+    return render(request, 'Perfil.html', {'user': usr_encontrado.user, 'saldo': dinero_usuario, 'saludo': saludoentrante})
 
 def saludo(request):
     url = 'http://192.168.137.1:5000/api/v1/test/saludo'

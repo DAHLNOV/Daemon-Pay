@@ -12,7 +12,7 @@ class Task(models.Model):
 class Usuario(models.Model):
     user = models.CharField(primary_key=True, max_length=255, verbose_name='usuario')
     contrasena = models.CharField(max_length=20)
-    saldo = models.IntegerField(default=10000)
+    saldo = models.IntegerField(default=50000)
 
     def __str__(self):
         return self.user

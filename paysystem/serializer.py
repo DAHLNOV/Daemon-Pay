@@ -12,7 +12,7 @@ class TaskSerializer(serializers.ModelSerializer):
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
-        fields = ('user', 'contrasena', 'dinero')
+        fields = ('user', 'contrasena', 'saldo')
 
 
 class UserRegisterSerializer(serializers.ModelSerializer):
@@ -37,5 +37,5 @@ class UserLoginSerializer(serializers.Serializer):
 class TransaccionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Transaccion
-        fields = ('id', 'fecha', 'total', 'estado')
+        fields = ('nrotransaccion', 'fecha', 'total', 'estado', 'usuario_origen', 'usuario_destino')
         

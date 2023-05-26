@@ -1,11 +1,58 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block content %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil de Usuario</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <header class="bg-gray-900 text-white py-4">
+    <div class="container mx-auto flex items-center justify-between">
+      <h1 class="text-xl font-bold">Mi Aplicación</h1>
+      <button class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded"
+        onclick="logout()">Logout</button>
+    </div>
+  </header>
+
   <div class="container mx-auto py-8">
     <div class="max-w-md mx-auto bg-white shadow-md rounded px-6 py-4">
+      <h1 class="font-bold mb-4 text-center">{{ saludo }}</h1>
+      <br>
       <h2 class="text-2xl font-bold mb-4">Perfil de Usuario</h2>
       <p class="mb-4">Nombre de usuario: {{ user }}</p>
       <p class="mb-4">Saldo: {{ saldo }}</p>
+      <a href="/transaccionpage/"
+        class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 ease-in-out border-2 border-blue-500 hover:border-blue-600">
+        Realizar transferencia
+      </a>
     </div>
   </div>
-{% endblock %}
+
+  <footer class="bg-gray-900 text-white py-4">
+    <div class="container mx-auto">
+      <p class="text-center">© 2023 Mi Aplicación. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+    function logout() {
+      fetch('/api/v2/logout/', { method: 'POST' })
+        .then(response => {
+          if (response.ok) {
+            // Realizar alguna acción adicional después de cerrar sesión exitosamente
+            console.log('Logout exitoso');
+            window.location.href = '/login/';
+          } else {
+            // Manejar errores en caso de que la solicitud no sea exitosa
+            console.error('Error al cerrar sesión');
+          }
+        })
+        .catch(error => {
+          console.error('Error de red:', error);
+        });
+    }
+  </script>
+</body>

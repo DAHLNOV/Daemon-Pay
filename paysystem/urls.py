@@ -7,6 +7,7 @@ from .views import *
 router = routers.DefaultRouter()
 router.register(r'paysystem', views.TaskView, 'paysystem')
 router.register(r'usuarios', views.UsuarioView, 'usuario')
+router.register(r'transacciones', views.TransaccionView, 'usuario')
 
 urlpatterns = [
     path('',homeApi), 
