@@ -2,7 +2,7 @@ from django.urls import path, include
 from rest_framework.documentation import include_docs_urls
 from rest_framework import routers
 from paysystem import views
-from .views import homeApi, saludo, login_view
+from .views import *
 
 router = routers.DefaultRouter()
 router.register(r'paysystem', views.TaskView, 'paysystem')
@@ -13,6 +13,13 @@ urlpatterns = [
     path('',homeApi), 
     path("api/v1/", include(router.urls)) ,
     path('docs/', include_docs_urls(title="Tasks API")),
-    path('login/', login_view, name='login'),
-    path('api/saludo/', saludo, name='saludo')
+    path('api/v2/login/', UserLogin, name='login'),
+    path('api/v2/register/', UserRegister, name='register'),
+    path('api/v2/logout/', UserLogout, name='logout'),
+    path('api/v2/user/', UserView, name='user'),
+    path('api/saludo/', saludo, name='saludo'),
+    path('register/', registerview),
+    path('login/', loginview),
+    path('perfil/', perfilview)
+
 ]
