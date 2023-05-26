@@ -6,30 +6,106 @@
 <html>
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario de Transferencia</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Santander+Display&family=Santander+Text&display=swap');
+
+        body {
+            background: linear-gradient(90deg, #87CEFA, #9370DB, #808080);
+            font-family: 'Santander Text', sans-serif;
+        }
+
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            padding: 40px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .form-container h2 {
+            color: #333;
+            font-size: 28px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            font-family: 'Santander Display', sans-serif;
+        }
+
+        .form-container label {
+            color: #333;
+            font-size: 16px;
+            font-weight: bold;
+            font-family: 'Santander Text', sans-serif;
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .form-container button {
+            background-color: #6c757d;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .animate-bounce {
+            animation: bounce 1s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <div class="container">
-        <h2>Formulario de Transferencia</h2>
-        <form method="POST" action="/transaccion/">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="usuario-origen">Usuario Origen:</label>
-                <input type="text" class="form-control" id="usuario-origen" name="usuario-origen" required>
-            </div>
-            <div class="form-group">
-                <label for="usuario-destino">Usuario Destino:</label>
-                <input type="text" class="form-control" id="usuario-destino" name="usuario-destino" required>
-            </div>
-            <div class="form-group">
-                <label for="total">Monto a Transferir:</label>
-                <input type="number" class="form-control" id="total" name="total" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Transferir</button>
-        </form>
+    <div class="flex items-center justify-center min-h-screen">
+        <div class="form-container">
+            <h2 class="text-3xl font-bold">Formulario de Transferencia <i class="fas fa-exchange-alt animate-spin "></i></h2>
+            <form method="POST" action="/transaccion/" class="mt-6">
+
+                <!-- {% csrf_token %} -->
+
+                <div class="mb-6">
+                    <label for="usuario-origen" class="block font-semibold">Usuario Origen <i class="fas fa-user"></i>:</label>
+                    <input type="text" class="border py-2 px-3" id="usuario-origen" name="usuario-origen" required>
+                </div>
+                <div class="mb-6">
+                    <label for="usuario-destino" class="block font-semibold">Usuario Destino <i class="fas fa-user"></i>:</label>
+                    <input type="text" class="border py-2 px-3" id="usuario-destino" name="usuario-destino" required>
+                </div>
+                <div class="mb-6">
+                    <label for="total" class="block font-semibold">Monto a Transferir <i class="fas fa-dollar-sign"></i>:</label>
+                    <input type="number" class="border py-2 px-3" id="total" name="total" required>
+                </div>
+                <button type="submit" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                    Transferir <i class="fas fa-exchange-alt animate-spin"></i>
+                </button>
+            </form>
+        </div>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
 </body>
 
 </html>
