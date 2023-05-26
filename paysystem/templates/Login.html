@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container mx-auto py-8">
+    <div class="max-w-md mx-auto bg-white shadow-md rounded px-6 py-4">
+      <h2 class="text-2xl font-bold mb-4">Inicio de Sesión</h2>
+      <form method="post" action="/api/v2/login/">
+        <div class="mb-4">
+          <label for="user" class="block font-medium mb-2">Usuario</label>
+          <input type="text" name="user" id="user" class="w-full border border-gray-300 rounded px-3 py-2" required>
+        </div>
+        <div class="mb-4">
+          <label for="contrasena" class="block font-medium mb-2">Contraseña</label>
+          <input type="password" name="contrasena" id="contrasena" class="w-full border border-gray-300 rounded px-3 py-2" required>
+        </div>
+        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded">Iniciar Sesión</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}

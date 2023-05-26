@@ -1,12 +1,17 @@
-from rest_framework import viewsets, status
-from django.contrib.auth import authenticate, login
-from .serializer import TaskSerializer, UsuarioSerializer, TransaccionSerializer
+from rest_framework import viewsets, status, permissions
+from django.contrib.auth import authenticate, login, logout
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import SessionAuthentication
+from .serializer import TaskSerializer, UsuarioSerializer, TransaccionSerializer, UserLoginSerializer, UserRegisterSerializer
 from .models import Task, Usuario, Transaccion
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, get_object_or_404, redirect
+from django.http import HttpResponseRedirect
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from django.http import HttpResponse, HttpResponseRedirect
 import json
 import requests
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
@@ -23,23 +28,123 @@ class TransaccionView(viewsets.ModelViewSet):
     queryset = Transaccion.objects.all()
 
 
+
+
+#########################
 @api_view(['POST'])
-def login_view(request):
+def UserRegister (request):
+     usr_entrante = request.data['user']
+     pass_entrante = request.data['contrasena']
+     try:
+        newuser = Usuario(user=usr_entrante, contrasena=pass_entrante)
+        newuser.save()
+        return redirect('/perfil/')
+        #return Response({'message':'Usuario creado'}, status=status.HTTP_200_OK)
+     except:
+        return Response({'message':'No se pudo crear el usuario, revise bien los campos'},status=status.HTTP_400_BAD_REQUEST)
+
+
+
+@api_view(['POST'])
+def UserLogin(request):
     usr_entrante = request.data['user']
     passw_entrante = request.data['contrasena']
+    print(request.data)
     try:
         usr_encontrado = Usuario.objects.get(user = usr_entrante)
+        print(usr_encontrado)
         passw_encontrada = usr_encontrado.contrasena
         if(passw_encontrada == passw_entrante):
-            return Response({'message':'ok'}, status=status.HTTP_200_OK)
+            request.session['usuario'] = usr_encontrado.user
+            return HttpResponseRedirect('/perfil/', {'user': usr_encontrado.user})
         else: 
             return Response({'message':'Información errónea, intente nuevamente'},status=status.HTTP_400_BAD_REQUEST)
     except:#cambiar el usuario buscado no existe a info erronea por seguridad
         return Response({'messaje':'El usuario buscado no existe en nuestros registros'},status=status.HTTP_404_NOT_FOUND)
 
+# def transaccion_dinero(request, usuario_id):
+#     usuario_origen = get_object_or_404(Usuario, pk=request.user.id)
+#     usuario_destino = get_object_or_404(Usuario, pk=usuario_id)
+
+#     if request.method == 'POST':
+#         total_transferencia = int(request.POST.get('total'))
+
+#         if usuario_origen.dinero >= total_transferencia:
+#             usuario_origen.dinero -= total_transferencia
+#             usuario_destino.dinero += total_transferencia
+
+#             usuario_origen.save()
+#             usuario_destino.save()
+
+#             return HttpResponseRedirect('/ruta-de-destino/')
+#         else:
+#             error_message = 'No tienes suficiente dinero para realizar la transferencia.'
+
+#     return render(request, 'transferencia.html', {'usuario_destino': usuario_destino, 'error_message': error_message})
+
+@csrf_exempt
+def transferencia_view(request):
+    if request.method == 'POST':
+        usuario_origen_nombre = request.POST.get('usuario-origen')
+        usuario_destino_nombre = request.POST.get('usuario-destino')
+        total = int(request.POST.get('total'))
+
+        # Verificar si los usuarios existen
+        try:
+            usuario_origen = Usuario.objects.get(user=usuario_origen_nombre)
+            usuario_destino = Usuario.objects.get(user=usuario_destino_nombre)
+        except Usuario.DoesNotExist:
+            return HttpResponse('Los usuarios especificados no existen')
+        # Verificar si el usuario origen tiene suficientes fondos
+        if usuario_origen.saldo < total:
+            return HttpResponse('El usuario origen no tiene suficientes fondos')
+        
+        # Realizar la transferencia
+        usuario_origen.saldo -= total
+        usuario_destino.saldo += total
+        usuario_origen.save()
+        usuario_destino.save()
+
+        # Crear registro de transacción
+        Transaccion.objects.create(usuario_origen=usuario_origen, usuario_destino=usuario_destino, total=total, estado="Realizada")
+        return HttpResponse('Transferencia realizada con éxito')
+
+    return render(request, 'transaccion.html')
+
+
+def transaccion_view(request):
+    return render(request, 'transaccion.html')
+@api_view(['POST'])
+def UserLogout(request):
+	permission_classes = (permissions.AllowAny,)
+	authentication_classes = ()
+	logout(request)
+	return Response(status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def UserView(request):
+    usuario = request.user
+    serializer = UsuarioSerializer(usuario)
+    return Response({'user': serializer.data}, status=status.HTTP_200_OK)
+
+########################
 
 def homeApi(request):
     return render(request, 'indexAPI.html')
+
+def registerview(request):
+      return render(request, 'Register.html')
+
+def loginview(request):
+	return render(request, 'Login.html')
+
+def perfilview(request):
+    usuario = request.session['usuario']
+    usr_encontrado = Usuario.objects.get(user = usuario)
+    dinero_usuario = usr_encontrado.dinero
+    print(usr_encontrado)
+    return render(request, 'Perfil.html', {'user': usr_encontrado.user, 'dinero': dinero_usuario})
 
 def saludo(request):
     url = 'http://192.168.137.1:5000/api/v1/test/saludo'
