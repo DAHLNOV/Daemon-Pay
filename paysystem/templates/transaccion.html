@@ -15,8 +15,22 @@
         @import url('https://fonts.googleapis.com/css2?family=Santander+Display&family=Santander+Text&display=swap');
 
         body {
-            background: linear-gradient(90deg, #87CEFA, #9370DB, #808080);
-            font-family: 'Santander Text', sans-serif;
+            background: linear-gradient(90deg, #00CFFF, #9370DB, #808080);
+            background-size: 300% 300%;
+            animation: gradientAnimation 10s ease infinite;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         .form-container {
