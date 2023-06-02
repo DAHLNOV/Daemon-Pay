@@ -12,6 +12,7 @@ router.register(r'transacciones', views.TransaccionView, 'usuario')
 urlpatterns = [
     path('',homeApi), 
     path("api/v1/", include(router.urls)),
+    path("api/v1/transferencia/", transferencia_api),
     path('docs/', include_docs_urls(title="Tasks API")),
     path('api/v2/login/', UserLogin, name='login'),
     path('api/v2/register/', UserRegister, name='register'),

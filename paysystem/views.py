@@ -86,12 +86,33 @@ def UserLogin(request):
 
 #     return render(request, 'transferencia.html', {'usuario_destino': usuario_destino, 'error_message': error_message})
 
-@csrf_exempt
+@api_view(['POST'])
+def transferencia_api(request):
+        usuario_origen_nombre = request.data.get('usuario-origen')
+        usuario_destino_nombre = request.data.get('usuario-destino')
+        total = int(request.data.get('total'))
+
+        # Verificar si los usuarios existen
+        try:
+            usuario_destino = Usuario.objects.get(user=usuario_destino_nombre)
+        except Usuario.DoesNotExist:
+            return Response({'message':'El usuario no existe'}, status=status.HTTP_400_BAD_REQUEST)
+        # Verificar si el usuario origen tiene suficientes fondos
+        
+        # Realizar la transferencia
+        usuario_destino.saldo += total
+        usuario_destino.save()
+
+        # Crear registro de transacción
+        Transaccion.objects.create(usuario_origen=usuario_origen_nombre, usuario_destino=usuario_destino, total=total, estado="Realizada")
+        return Response({'message':'Transferencia exitosa'}, status=status.HTTP_200_OK)
+
 def transferencia_view(request):
     if request.method == 'POST':
         usuario_origen_nombre = request.POST.get('usuario-origen')
         usuario_destino_nombre = request.POST.get('usuario-destino')
         total = int(request.POST.get('total'))
+
 
         # Verificar si los usuarios existen
         try:
@@ -114,7 +135,6 @@ def transferencia_view(request):
         return HttpResponse('Transferencia realizada con éxito')
 
     return render(request, 'transaccion.html', {'user': usuario_origen_nombre})
-
 
 def transaccion_view(request):
     return render(request, 'transaccion.html')
