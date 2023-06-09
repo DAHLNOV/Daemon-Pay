@@ -22,7 +22,7 @@ class Transaccion(models.Model):
     fecha = models.DateTimeField(auto_now_add=True)
     total = models.IntegerField(default=0)
     estado = models.CharField(max_length=32, null=False,blank=False,default='esperando', verbose_name='estado')
-    usuario_origen = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='usuarioOrigen')
+    usuario_origen = models.CharField(max_length=64)
     usuario_destino = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='usuarioDestinatario')
 
     def __str__(self):
