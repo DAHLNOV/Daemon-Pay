@@ -107,6 +107,7 @@ def transferencia_api(request):
         Transaccion.objects.create(usuario_origen=usuario_origen_nombre, usuario_destino=usuario_destino, total=total, estado="Realizada")
         return Response({'message':'Transferencia exitosa'}, status=status.HTTP_200_OK)
 
+@csrf_exempt
 def transferencia_view(request):
     if request.method == 'POST':
         usuario_origen_nombre = request.POST.get('usuario-origen')
