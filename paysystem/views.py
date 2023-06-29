@@ -8,10 +8,11 @@ from django.shortcuts import render, HttpResponse, get_object_or_404, redirect
 from django.http import HttpResponseRedirect
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 import json
 import requests
 from django.views.decorators.csrf import csrf_exempt
+
 
 # Create your views here.
 
@@ -183,3 +184,37 @@ def saludo(request):
 
     print(content['message'])
     return HttpResponse(content)
+
+def beatpayform(request):
+    return render(request, 'transferir_beatpay.html')
+
+
+@csrf_exempt
+def beatpay(request):
+    if request.method == 'POST':
+        # Obtener los datos del cuerpo de la solicitud
+        tarjeta_origen = request.POST.get('tarjeta_origen')
+        tarjeta_destino = request.POST.get('tarjeta_destino')
+        comentario = request.POST.get('comentario')
+        monto = request.POST.get('monto')
+        codigo = 'DAEMON'
+        token = 'DAEMON123'
+
+        # Construir el cuerpo de la solicitud
+        data = {
+            'tarjeta_origen': tarjeta_origen,
+            'tarjeta_destino': tarjeta_destino,
+            'comentario': comentario,
+            'monto': monto,
+            'codigo': codigo,
+            'token': token
+        }
+
+        # Realizar la solicitud POST al endpoint
+        response = requests.post('https://musicpro.bemtorres.win/api/v1/tarjeta/transferir', json=data)
+
+        # Devolver la respuesta del endpoint
+        return JsonResponse(response.json())
+
+    # La solicitud no es de tipo POST
+    return JsonResponse({'mensaje': 'Método no permitido'}, status=405)
