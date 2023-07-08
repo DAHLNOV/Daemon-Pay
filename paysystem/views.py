@@ -12,6 +12,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 import json
 import requests
 from django.views.decorators.csrf import csrf_exempt
+from faker import Faker
 
 
 # Create your views here.
@@ -28,6 +29,7 @@ class TransaccionView(viewsets.ModelViewSet):
     serializer_class = TransaccionSerializer
     queryset = Transaccion.objects.all()
 
+fake = Faker()
 
 
 
@@ -218,3 +220,13 @@ def beatpay(request):
 
     # La solicitud no es de tipo POST
     return JsonResponse({'mensaje': 'Método no permitido'}, status=405)
+
+def generatefakedata(request):
+        for _ in range(2000):
+            user = fake.user_name()
+            contrasena = fake.password()
+        
+            usuario = Usuario(user=user, contrasena=contrasena)
+            usuario.save()
+    
+        return render(request, 'fakedata.html')

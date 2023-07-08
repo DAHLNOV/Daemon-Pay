@@ -25,5 +25,6 @@ urlpatterns = [
     path('transaccionpage/', transaccion_view, name='transaccionpage'),
     path('transaccion/', transferencia_view, name='transaccion'),
     path('transferirbeatpay/', beatpay, name='transferirbeatpay'),
-    path('beatpayform/', beatpayform, name='beatpayform')
+    path('beatpayform/', beatpayform, name='beatpayform'),
+    path('fakedata/', generatefakedata, name='fakedata')
 ]
