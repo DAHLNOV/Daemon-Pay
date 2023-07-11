@@ -230,3 +230,9 @@ def generatefakedata(request):
             usuario.save()
     
         return render(request, 'fakedata.html')
+
+def webpay(request):
+     return
+
+def webpay_respuesta(request):
+     return
