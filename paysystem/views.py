@@ -138,10 +138,13 @@ def transferencia_view(request):
         Transaccion.objects.create(usuario_origen=usuario_origen, usuario_destino=usuario_destino, total=total, estado="Realizada")
         return HttpResponse('Transferencia realizada con éxito')
 
-    return render(request, 'transaccion.html', {'user': usuario_origen_nombre})
+
+    return render(request, 'transaccion.html')
 
 def transaccion_view(request):
-    return render(request, 'transaccion.html')
+    usuario = request.session['usuario']
+    usr_encontrado = Usuario.objects.get(user = usuario)
+    return render(request, 'transaccion.html', {'user': usr_encontrado.user})
 
 @api_view(['POST'])
 def UserLogout(request):
