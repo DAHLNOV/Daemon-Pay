@@ -3,7 +3,7 @@
 <h1 align="center"> Contexto</h1>
 <hr>
 <br>
-Nuestro proyecto se centra en el desarrollo de un sistema de tarjetas de prepago innovador y eficiente, diseñado para ofrecer flexibilidad y seguridad a los usuarios.
+Este proyecto es un sistema de tarjetas de prepago diseñado para ofrecer una experiencia financiera segura y flexible a los usuarios
 
 
 <h1 align="center"> Descripcion </h1>
