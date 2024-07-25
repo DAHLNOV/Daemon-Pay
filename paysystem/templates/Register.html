@@ -1,0 +1,129 @@
+<!--{% extends 'base.html' %}
+
+{% block content %}-->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro</title>
+
+  <!--iconos-->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+  <!--Google Fonts-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+
+  <!--CSS-->
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+  <link rel="stylesheet" href="r/fontawesome.min.css">
+  
+</head>
+
+<body class="flex flex-col min-h-screen">
+  <header class="sticky-nav bg-gray-900 text-white py-4">
+    <div class="container mx-auto flex items-center justify-between">
+      <nav class="bg-white dark:bg-v-900 fixed w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
+        <div class="flex flex-wrap items-center justify-between mx-auto p-4">
+          <div class="navbar-left">
+            <a href="" class="flex items-center">
+              <img src="https://api.iconify.design/simple-icons:compropago.svg?color=Black" class="h-8 mr-3" alt="Daemon Logo" />
+              <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-black text-black">DAEMON PAGO</span>
+            </a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+
+
+
+  <div class="flex-grow container mx-auto flex items-center justify-center py-8">
+    <div class="max-w-md w-full bg-white shadow-md rounded px-6 py-4">
+      <br>
+      <h2 class="text-2xl font-bold mb-4 text-center">Registro de Usuario</h2>
+      <br>
+
+
+
+
+
+
+      <form method="post" action="/api/v2/register/" class="flex flex-col">
+        <div class="mb-4 flex items-center">
+          <i class="fas fa-user mr-2"></i>
+          <label for="user" class="block font-medium mb-0"><b>Usuario</b></label>
+        </div>
+        <input type="text" name="user" id="user" class="w-full border border-gray-300 rounded px-3 py-2" required>
+        <br>
+      <div class="mb-4">
+      <label for="contrasena" class="block font-medium mb-3 flex items-center">
+      <i class="fas fa-lock mr-2"></i>
+      <b>Contraseña</b>
+      </label>
+      <input type="password" name="contrasena" id="contrasena" class="w-full border border-gray-300 rounded px-3 py-2" required>
+      <br>
+      <br>
+      <label for="contrasena" class="block font-medium mb-3 flex items-center">
+      <i class="fas fa-lock mr-2"></i>
+      <b>Confirmar Contraseña</b>
+      </label>
+      <input type="password" name="contrasena" id="contrasena" class="w-full border border-gray-300 rounded px-3 py-2" required>
+      </div>
+        <br>
+        <button type="submit" class="btn-register">Registrarse</button>
+      </form>
+    </div>
+  </div>
+
+  <footer class="bg-white dark:bg-gray-900 mt-auto">
+    <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
+      <div class="md:flex md:justify-between">
+        <div class="mb-6 md:mb-0">
+          <a href="" class="flex items-center">
+            <img src="https://api.iconify.design/simple-icons:compropago.svg?color=Black" class="h-8 mr-3" alt="Daemon Logo" />
+            <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">DAEMON</span>
+          </a>
+        </div>
+        <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
+          <div></div>
+          <div>
+            <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Siguenos</h2>
+            <ul class="text-gray-600 dark:text-gray-400 font-medium">
+              <li class="mb-4">
+                <a href="https://instagram.com" class="hover:underline">Instagram</a>
+              </li>
+              <li>
+                <a href="https://twitter.com" class="hover:underline">Twitter</a>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Legal</h2>
+            <ul class="text-gray-600 dark:text-gray-400 font-medium">
+              <li class="mb-4">
+                <a href="#" class="hover:underline">Politica de Privacidad</a>
+              </li>
+              <li>
+                <a href="#" class="hover:underline">Terminos &amp; Condiciones</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+
+
+<!--{% endblock %}-->
+
+</body>
+
+</html>

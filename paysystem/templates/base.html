@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil de Usuario</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+  <header class="bg-gray-900 text-white py-4">
+    <div class="container mx-auto flex items-center justify-between">
+      <h1 class="text-xl font-bold">Mi Aplicación</h1>
+    </div>
+  </header>
+
+  <main>
+    {% block content %}
+    {% endblock %}
+  </main>
+
+  <footer class="bg-gray-900 text-white py-4">
+    <div class="container mx-auto">
+      <p class="text-center">© 2023 Mi Aplicación. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+</body>
+</html>

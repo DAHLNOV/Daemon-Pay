@@ -3,8 +3,8 @@
 <h1 align="center"> Contexto</h1>
 <hr>
 <br>
-Este proyecto web es el encargo semestral solicitado para la asignatura de Integración de plataformas con el fin de aprender sobre herramientas y el proceso de integración de sistemas.<br><br>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque auctor suscipit tortor, ac finibus enim cursus venenatis. Aliquam gravida posuere nibh, in pretium turpis porta a. Mauris sit amet felis scelerisque, rutrum lorem sed, imperdiet enim. Morbi consequat enim odio, ut fringilla ipsum fermentum sit amet. Phasellus pharetra fringilla ultricies.
+
+Este proyecto es un sistema de tarjetas de prepago diseñado para ofrecer una experiencia financiera segura y flexible a los usuarios
 
 <h1 align="center"> Descripcion </h1>
 <hr>
@@ -15,11 +15,16 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque auctor suscipit
 <h1 align="center"> Características </h1>
 <hr>
 
-### - Sistema de pagos
- Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque auctor suscipit tortor, ac finibus enim cursus venenatis. Aliquam gravida posuere nibh, in pretium turpis porta a. Mauris sit amet felis scelerisque, rutrum lorem sed, imperdiet enim. Morbi consequat enim odio, ut fringilla ipsum fermentum sit amet. Phasellus pharetra fringilla ultricies.
+## Sistema de pagos
+* Creación de Cuentas para Tarjetas Prepago: El sistema permite a los usuarios crear cuentas personales para administrar sus tarjetas de prepago de manera sencilla. Cada cuenta está protegida por medidas de seguridad avanzadas, garantizando la protección de la información personal y financiera de los usuarios.
 
-### - BEATPAY
- Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque auctor suscipit tortor, ac finibus enim cursus venenatis. Aliquam gravida posuere nibh, in pretium turpis porta a. Mauris sit amet felis scelerisque, rutrum lorem sed, imperdiet enim. Morbi consequat enim odio, ut fringilla ipsum fermentum sit amet. Phasellus pharetra fringilla ultricies.
+* Transacciones entre Tarjetas: Los usuarios pueden realizar transacciones entre tarjetas de prepago dentro del mismo sistema. Esta funcionalidad facilita el intercambio de fondos de manera rápida y segura entre cuentas, mejorando la experiencia del usuario y fomentando un ecosistema financiero integrado.
+
+* Integración con Otros Sistemas de Tarjetas Prepago: Nuestro sistema está diseñado para integrarse de manera fluida con otros sistemas de tarjetas de prepago. Esto permite a los usuarios realizar transferencias entre diferentes plataformas, ampliando las posibilidades de uso y mejorando la interoperabilidad entre servicios financieros.
+
+* Integración con Webpay: Para ofrecer una experiencia de pago aún más completa, el sistema está integrado con Webpay. Esto permite a los usuarios realizar pagos en línea de manera segura y eficiente, utilizando sus tarjetas de prepago en una amplia gama de comercios que aceptan esta forma de pago.
+
+## BEATPAY
 
 <h1 align="center"> Uso </h1><hr>
 

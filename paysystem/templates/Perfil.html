@@ -1,0 +1,131 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil de Usuario</title>
+
+<!--iconos-->
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+
+<!--Google Fonts-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+
+
+<!--CSS-->
+<link rel="stylesheet" href="{% static 'style.css' %}">
+<link rel="stylesheet" href="r/fontawesome.min.css">
+
+
+
+</head>
+
+<body class="flex flex-col min-h-screen">
+  <header class="sticky-nav bg-gray-900 text-white py-4">
+    <div class="container mx-auto flex items-center justify-between">
+
+      <nav class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
+        <div class="flex flex-wrap items-center justify-between mx-auto p-4">
+
+          <div class="navbar-left">
+            <a href="" class="flex items-center">
+              <img src="https://api.iconify.design/simple-icons:compropago.svg?color=Black" class="h-8 mr-3" alt="Daemon Logo" />
+              <span class="self-center text-2xl font-semibold blackspace-nowrap dark:text-black text-black">DAEMON PAGO</span>
+            </a>
+          </div>
+
+          <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
+            <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+
+
+  <div class="container mx-auto py-8 flex-grow">
+    <div class="profile-container">
+      <h1>{{ saludo }}</h1>
+      <br>
+      <h2 class="text-center mx-auto"> Perfil de Usuario</h2>
+      <br>
+      <p style="text-align: left;">Nombre de usuario: {{ user }}</p>
+      <br>
+      <p style="text-align: left;">Saldo: {{ saldo }}</p>
+      <br>
+      <div class="text-center">
+        <a href="/transaccionpage/" class="inline-block">Realizar transferencia</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
+  <footer class="bg-white dark:bg-gray-900">
+    <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
+      <div class="md:flex md:justify-between">
+        <div class="mb-6 md:mb-0">
+          <a href="" class="flex items-center">
+            <img src="https://api.iconify.design/simple-icons:compropago.svg?color=Black" class="h-8 mr-3" alt="Daemon Logo" />
+            <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">DAEMON</span>
+          </a>
+        </div>
+        <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
+          <div>
+
+          </div>
+          <div>
+            <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Siguenos</h2>
+            <ul class="text-gray-600 dark:text-gray-400 font-medium">
+              <li class="mb-4">
+                <a href="https://instagram.com" class="hover:underline ">Instagram</a>
+              </li>
+              <li>
+                <a href="https://twitter.com" class="hover:underline">Twitter</a>
+              </li>
+          </div>
+          <div>
+            <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Legal</h2>
+            <ul class="text-gray-600 dark:text-gray-400 font-medium">
+              <li class="mb-4">
+                <a href="#" class="hover:underline">Politica de Privacidad</a>
+              </li>
+              <li>
+                <a href="#" class="hover:underline">Terminos &amp; Condiciones</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function logout() {
+      fetch('/api/v2/logout/', { method: 'POST' })
+        .then(response => {
+          if (response.ok) {
+            // Realizar alguna acción adicional después de cerrar sesión exitosamente
+            console.log('Logout exitoso');
+            window.location.href = '/login/';
+          } else {
+            // Manejar errores en caso de que la solicitud no sea exitosa
+            console.error('Error al cerrar sesión');
+          }
+        })
+        .catch(error => {
+          console.error('Error de red:', error);
+        });
+    }
+  </script>
+</body>
+
+</html>
